@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.15.1"
+    "@strapi/plugin-i18n": "^4.25.24",
+    "@strapi/plugin-users-permissions": "^4.25.24",
+    "@strapi/strapi": "^4.25.24",
+    "astro": "^5.15.1",
+    "pg": "^8.16.3"
   }
 }
