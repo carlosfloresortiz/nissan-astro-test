@@ -1,0 +1,345 @@
+---
+import { getCarousels } from '../lib/strapi';
+
+let carousels = [];
+let error = null;
+
+try {
+  carousels = await getCarousels();
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Failed to fetch carousels';
+}
+
+// Get the first carousel's items for the hero carousel
+const heroItems = carousels[0]?.Items || [];
+---
+
+<section id="principal-carousel">
+  <div class="carousel-container">
+    {heroItems.map((item, index) => (
+      <div
+        class={`carousel-slide ${index === 0 ? 'active' : ''}`}
+        data-index={index}
+        style={{
+          backgroundImage: item.Image?.url ? `url(${item.Image.url})` : 'none',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div class="carousel-content">
+          <h3 class="carousel-subtitle">{item.Subtitle}</h3>
+          <h2 class="carousel-title">{item.Title}</h2>
+          <a href={item.Link_url} class="btn btn-secondary">{item.Link_text}</a>
+        </div>
+      </div>
+    ))}
+
+    <div class="carousel-thumbnails">
+      {heroItems.map((item, index) => (
+        <div
+          class={`thumbnail-item ${index === 0 ? 'active' : ''}`}
+          data-index={index}
+        >
+          {item.Image?.url && (
+            <img src={item.Image.url} alt={`Thumbnail ${index + 1}`} />
+          )}
+          <div class="thumbnail-progress-bar" data-index={index}></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  class HeroCarousel {
+    constructor() {
+      this.currentSlide = 0;
+      this.isPaused = false;
+      this.slides = document.querySelectorAll('.carousel-slide');
+      this.thumbnails = document.querySelectorAll('.thumbnail-item');
+      this.progressBars = document.querySelectorAll('.thumbnail-progress-bar');
+      this.autoPlayTimeout = null;
+      this.startTime = null;
+      this.remainingTime = 5000;
+      
+      this.init();
+    }
+
+    init() {
+      this.bindEvents();
+      this.startAutoPlay();
+    }
+
+    bindEvents() {
+      // Thumbnail clicks
+      this.thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => this.goToSlide(index));
+      });
+
+      // Touch events
+      let startX = 0;
+      this.slides.forEach(slide => {
+        slide.addEventListener('touchstart', (e) => {
+          this.pauseAutoPlay();
+          startX = e.touches[0].clientX;
+        });
+
+        slide.addEventListener('touchend', (e) => {
+          const endX = e.changedTouches[0].clientX;
+          this.handleSwipe(startX, endX);
+        });
+      });
+
+      // Pause on hover
+      this.slides.forEach(slide => {
+        slide.addEventListener('mouseenter', () => this.pauseAutoPlay());
+        slide.addEventListener('mouseleave', () => this.startAutoPlay());
+      });
+    }
+
+    goToSlide(index) {
+      if (index === this.currentSlide) return;
+
+      this.pauseAutoPlay();
+      this.currentSlide = index;
+      this.updateSlides();
+      this.updateThumbnails();
+      this.remainingTime = 5000;
+
+      if (!this.isPaused) {
+        this.startAutoPlay();
+      }
+    }
+
+    updateSlides() {
+      this.slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === this.currentSlide);
+      });
+    }
+
+    updateThumbnails() {
+      this.thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === this.currentSlide);
+      });
+    }
+
+    startAutoPlay() {
+      if (this.autoPlayTimeout) return;
+
+      this.startTime = Date.now();
+      this.autoPlayTimeout = setTimeout(() => {
+        const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+      }, this.remainingTime);
+
+      this.animateProgressBar();
+    }
+
+    pauseAutoPlay() {
+      if (!this.autoPlayTimeout) return;
+
+      clearTimeout(this.autoPlayTimeout);
+      this.autoPlayTimeout = null;
+
+      const elapsedTime = Date.now() - this.startTime;
+      this.remainingTime = Math.max(0, this.remainingTime - elapsedTime);
+    }
+
+    animateProgressBar() {
+      const activeProgressBar = this.progressBars[this.currentSlide];
+      if (activeProgressBar) {
+        activeProgressBar.style.transition = `width ${this.remainingTime}ms linear`;
+        activeProgressBar.style.width = '100%';
+      }
+    }
+
+    handleSwipe(startX, endX) {
+      const threshold = 50;
+      const diff = startX - endX;
+
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+          const nextIndex = (this.currentSlide + 1) % this.slides.length;
+          this.goToSlide(nextIndex);
+        } else {
+          const prevIndex = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1;
+          this.goToSlide(prevIndex);
+        }
+      }
+
+      this.isPaused = false;
+      this.startAutoPlay();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new HeroCarousel();
+  });
+</script>
+
+<style>
+/* Estilos para el carrusel principal */
+#principal-carousel {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-content {
+    text-align: left;
+    color: #ffffff;
+    max-width: 600px;
+    padding: 2rem;
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.carousel-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.carousel-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-secondary {
+    background-color: var(--color-text-light);
+    color: var(--color-primary);
+    border-color: var(--color-text-light);
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+    color: var(--color-text-light);
+    border-color: var(--color-text-light);
+}
+
+.carousel-thumbnails {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 10;
+}
+
+.thumbnail-item {
+    position: relative;
+    width: 150px;
+    height: 100px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.thumbnail-item:hover {
+    opacity: 0.8;
+}
+
+.thumbnail-item.active {
+    opacity: 1;
+    border-top: 4px solid #fff;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--color-text-light);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.thumbnail-item.active .thumbnail-progress-bar {
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-content {
+        left: 2%;
+        right: 2%;
+        padding: 1rem;
+        max-width: none;
+    }
+
+    .carousel-subtitle {
+        font-size: 1rem;
+    }
+
+    .carousel-title {
+        font-size: 2rem;
+    }
+
+    .carousel-thumbnails {
+        bottom: 1rem;
+        gap: 0.5rem;
+    }
+
+    .thumbnail-item {
+        width: 100px;
+        height: 66px;
+    }
+}
+</style>

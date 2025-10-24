@@ -1,0 +1,152 @@
+/* Estilos para el carrusel principal */
+#principal-carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-content {
+    text-align: center;
+    color: var(--color-text-light);
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.carousel-title {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+/* Thumbnails del carrusel */
+.carousel-thumbnails {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 2;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.carousel-thumbnails::-webkit-scrollbar {
+    display: none;
+}
+
+.thumbnail-item {
+    position: relative;
+    width: 120px;
+    height: 67.5px;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: border-color 0.3s ease;
+    overflow: hidden;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-item.active {
+    border-color: var(--color-text-light);
+}
+
+.thumbnail-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-text-light);
+}
+
+/* Botón secundario */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius-lg);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background-color: var(--color-text-light);
+    color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .carousel-title {
+        font-size: 2.5rem;
+    }
+
+    .carousel-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .thumbnail-item {
+        width: 100px;
+        height: 56.25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-title {
+        font-size: 2rem;
+    }
+
+    .carousel-subtitle {
+        font-size: 1rem;
+    }
+
+    .thumbnail-item {
+        width: 80px;
+        height: 45px;
+    }
+}
