@@ -3,12 +3,14 @@ import Header from '../components/Header.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
 import Carousel from '../components/Carousel.astro';
 import { getCarousels } from '../lib/strapi';
+import type { Carousel as CarouselType } from '../lib/strapi'; // <-- 1. Importa el TIPO
 
-let carousels = [];
+let carousels: CarouselType[] = []; // <-- 2. Asigna el TIPO
 let error = null;
 
 try {
   carousels = await getCarousels();
+
 } catch (e) {
   error = e instanceof Error ? e.message : 'Failed to fetch carousels';
   console.error('Error fetching carousels:', e);
@@ -142,7 +144,7 @@ try {
 
 		{!error && carousels.length > 0 && carousels.every(c => {
 			// Check for Items field directly on carousel or in attributes
-			const items = c.Items || (c.attributes && c.attributes.Items) || [];
+			const items = c.Items || [];
 			return !items || items.length === 0;
 		}) && (
 			<div class="empty-message">
@@ -153,12 +155,12 @@ try {
 		)}
 
 		{!error && carousels.length > 0 && (
-			<HeroCarousel />
+			<HeroCarousel heroCarouselData={carousels[0]} />
 		)}
 
 		{!error && carousels.length > 1 && carousels.slice(1).map((carousel) => {
 			// Check for Items field directly on carousel or in attributes
-			const items = carousel.Items || (carousel.attributes && carousel.attributes.Items) || [];
+			const items = carousel.Items || [];
 			if (!items || items.length === 0) return null;
 			return <Carousel carousel={carousel} />;
 		}).filter(Boolean)}

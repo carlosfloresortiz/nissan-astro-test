@@ -1,17 +1,19 @@
 ---
-import { getCarousels } from '../lib/strapi';
+// HeroCarousel.astro
 
-let carousels = [];
-let error = null;
+import { getStrapiImageUrl } from '../lib/strapi';
+// Importa AMBOS tipos: Carousel y CarouselItem
+import type { Carousel, CarouselItem } from '../lib/strapi'; 
 
-try {
-  carousels = await getCarousels();
-} catch (e) {
-  error = e instanceof Error ? e.message : 'Failed to fetch carousels';
+// Define las Props
+interface Props {
+  heroCarouselData: Carousel;
 }
 
-// Get the first carousel's items for the hero carousel
-const heroItems = carousels[0]?.Items || [];
+const { heroCarouselData } = Astro.props;
+
+// TypeScript ahora sabe que 'heroItems' es un array de 'CarouselItem'
+const heroItems = heroCarouselData?.Items || []; 
 ---
 
 <section id="principal-carousel">
@@ -21,7 +23,7 @@ const heroItems = carousels[0]?.Items || [];
         class={`carousel-slide ${index === 0 ? 'active' : ''}`}
         data-index={index}
         style={{
-          backgroundImage: item.Image?.url ? `url(${item.Image.url})` : 'none',
+          backgroundImage: item.Image?.url ? `url(${getStrapiImageUrl(item.Image)})` : 'none',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -40,8 +42,8 @@ const heroItems = carousels[0]?.Items || [];
           class={`thumbnail-item ${index === 0 ? 'active' : ''}`}
           data-index={index}
         >
-          {item.Image?.url && (
-            <img src={item.Image.url} alt={`Thumbnail ${index + 1}`} />
+          {item.Image?.url && ( 
+            <img src={getStrapiImageUrl(item.Image)} alt={`Thumbnail ${index + 1}`} />
           )}
           <div class="thumbnail-progress-bar" data-index={index}></div>
         </div>
@@ -50,7 +52,7 @@ const heroItems = carousels[0]?.Items || [];
   </div>
 </section>
 
-<script>
+<script is:inline>
   class HeroCarousel {
     constructor() {
       this.currentSlide = 0;

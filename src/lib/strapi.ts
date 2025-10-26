@@ -22,17 +22,15 @@ export interface CarouselItem {
     Subtitle: string;
     Link_url: string;
     Link_text: string;
-    image?: StrapiImage; // Now we should get this with proper populate
+    Image?: StrapiImage; // Now we should get this with proper populate
 }
 
 export interface Carousel {
     id: number;
-    attributes: {
-        Items: CarouselItem[];
-        createdAt: string;
-        updatedAt: string;
-        publishedAt: string;
-    };
+    Items: CarouselItem[]; // <-- Mueve 'Items' al nivel superior
+    createdAt: string;     // <-- Mueve todo al nivel superior
+    updatedAt: string;
+    publishedAt: string;
 }
 
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';

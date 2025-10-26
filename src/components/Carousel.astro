@@ -9,7 +9,7 @@ interface Props {
 const { carousel } = Astro.props;
 
 // Check for Items field directly on carousel or in attributes
-const items = carousel.Items || (carousel.attributes && carousel.attributes.Items) || [];
+const items = carousel.Items || [];
 
 // Helper function to find image field in item (Strapi v5 flattened format)
 function getImageField(item: any) {
