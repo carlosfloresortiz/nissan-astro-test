@@ -2,25 +2,21 @@
 // HeroCarousel.astro
 
 import { getStrapiImageUrl } from '../lib/strapi';
-// Importa AMBOS tipos: Carousel y CarouselItem
-import type { Carousel, CarouselItem } from '../lib/strapi'; 
+import type { Carousel, CarouselItem } from '../lib/strapi';
 
-// Define las Props
 interface Props {
   heroCarouselData: Carousel;
 }
 
 const { heroCarouselData } = Astro.props;
-
-// TypeScript ahora sabe que 'heroItems' es un array de 'CarouselItem'
-const heroItems = heroCarouselData?.Items || []; 
+const heroItems = heroCarouselData?.Items || [];
 ---
-
 <section id="principal-carousel">
   <div class="carousel-container">
     {heroItems.map((item, index) => (
       <div
         class={`carousel-slide ${index === 0 ? 'active' : ''}`}
+        id={`slide-${index + 1}`}
         data-index={index}
         style={{
           backgroundImage: item.Image?.url ? `url(${getStrapiImageUrl(item.Image)})` : 'none',
@@ -29,9 +25,9 @@ const heroItems = heroCarouselData?.Items || [];
         }}
       >
         <div class="carousel-content">
-          <h3 class="carousel-subtitle">{item.Subtitle}</h3>
-          <h2 class="carousel-title">{item.Title}</h2>
-          <a href={item.Link_url} class="btn btn-secondary">{item.Link_text}</a>
+          <h3 class="carousel-subtitle">{item.Subtitle ?? 'subtitutlo'}</h3>
+          <h2 class="carousel-title">{item.Title ?? 'titulo'}</h2>
+          <a href={item.Link_url ?? '/'} class="btn btn-secondary">{item.Link_text ?? 'link text'}</a>
         </div>
       </div>
     ))}
@@ -40,286 +36,395 @@ const heroItems = heroCarouselData?.Items || [];
       {heroItems.map((item, index) => (
         <div
           class={`thumbnail-item ${index === 0 ? 'active' : ''}`}
-          data-index={index}
+          data-slide={index}
         >
-          {item.Image?.url && ( 
+          {item.Image?.url && (
             <img src={getStrapiImageUrl(item.Image)} alt={`Thumbnail ${index + 1}`} />
           )}
-          <div class="thumbnail-progress-bar" data-index={index}></div>
         </div>
       ))}
     </div>
   </div>
 </section>
 
-<script is:inline>
-  class HeroCarousel {
-    constructor() {
-      this.currentSlide = 0;
-      this.isPaused = false;
-      this.slides = document.querySelectorAll('.carousel-slide');
-      this.thumbnails = document.querySelectorAll('.thumbnail-item');
-      this.progressBars = document.querySelectorAll('.thumbnail-progress-bar');
-      this.autoPlayTimeout = null;
-      this.startTime = null;
-      this.remainingTime = 5000;
-      
-      this.init();
-    }
+<style>
+/* ---------------------------------------------------------------------- */
+/* COMPONENTE: CARRUSEL PRINCIPAL (estilos exactamente como en carrusel.html, */
+/* salvo que se eliminaron las reglas #slide-N con background-image estático) */
+/* ---------------------------------------------------------------------- */
 
-    init() {
-      this.bindEvents();
-      this.startAutoPlay();
-    }
+#principal-carousel {
+  position: relative;
+  width: 100%;
+  margin-bottom: 60px;
+}
 
-    bindEvents() {
-      // Thumbnail clicks
-      this.thumbnails.forEach((thumb, index) => {
-        thumb.addEventListener('click', () => this.goToSlide(index));
+#principal-carousel .carousel-container {
+  position: relative;
+  width: 100%;
+  min-height: 85vh;
+}
+
+#principal-carousel .carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Se ELIMINARON las reglas #slide-1 ... #slide-5 que tenían background-image estático */
+
+#principal-carousel .carousel-slide.active {
+  opacity: 1;
+}
+
+#principal-carousel .carousel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 30%;
+  left: 3%;
+  color: white;
+  z-index: 2;
+}
+
+#principal-carousel .carousel-title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+}
+
+#principal-carousel .carousel-subtitle {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    letter-spacing: 2px !important;
+}
+
+#principal-carousel .carousel-thumbnails {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+#principal-carousel .thumbnail-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 190px;
+  height: 120px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#principal-carousel .thumbnail-item.active img {
+  filter: brightness(0.5);
+}
+
+#principal-carousel .thumbnail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Media Queries (Carrusel) */
+@media (max-width: 768px) {
+  #principal-carousel {
+    margin-bottom: 100px;
+  }
+
+  #principal-carousel .carousel-content {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+    transform: none;
+    top: 15%;
+    width: 100%;
+  }
+
+  #principal-carousel .carousel-title {
+    font-size: 36px;
+  }
+
+  #principal-carousel .carousel-slide {
+    background-position: center bottom;
+  }
+
+  #principal-carousel .carousel-thumbnails {
+    bottom: -90px;
+    width: 100%;
+    padding: 0;
+  }
+
+  #principal-carousel .thumbnail-item {
+    width: 135px;
+    height: 90px;
+  }
+
+  #principal-carousel .carousel-container {
+    height: 90vh;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  #principal-carousel .carousel-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  #principal-carousel .thumbnail-item {
+    width: 50px;
+    height: 38px;
+  }
+}
+
+/* Ocultar scrollbar */
+#principal-carousel .carousel-thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+#principal-carousel .carousel-thumbnails {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#principal-carousel .thumbnail-item {
+  position: relative;
+}
+
+:global(.thumbnail-progress-bar) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px; 
+  width: 0; 
+  background-color: #fff;
+  z-index: 10;
+}
+</style>
+
+<script>
+class ImageCarousel {
+  currentSlide: number;
+  slides: NodeListOf<HTMLElement>;
+  thumbnails: NodeListOf<HTMLElement>;
+  thumbnailContainer: HTMLElement | null;
+  transitionTime: number;
+  remainingTime: number;
+  startTime: number | null;
+  autoPlayTimeout: ReturnType<typeof setTimeout> | null;
+  isPaused: boolean;
+  progressBar: HTMLElement | null;
+
+  constructor() {
+    this.currentSlide = 0;
+    this.slides = document.querySelectorAll<HTMLElement>('.carousel-slide');
+    this.thumbnails = document.querySelectorAll<HTMLElement>('.thumbnail-item');
+    this.thumbnailContainer = document.querySelector<HTMLElement>('.carousel-thumbnails');
+
+    this.transitionTime = 5000;
+    this.remainingTime = this.transitionTime;
+    this.startTime = null;
+    this.autoPlayTimeout = null;
+    this.isPaused = false;
+    this.progressBar = null;
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.createProgressBar();
+    this.startAutoPlay();
+  }
+
+  bindEvents() {
+    this.thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener('click', () => {
+        this.goToSlide(index);
       });
+    });
 
-      // Touch events
-      let startX = 0;
-      this.slides.forEach(slide => {
-        slide.addEventListener('touchstart', (e) => {
-          this.pauseAutoPlay();
-          startX = e.touches[0].clientX;
-        });
+    const carousel = document.getElementById('principal-carousel');
+    if (!carousel) return;
 
-        slide.addEventListener('touchend', (e) => {
-          const endX = e.changedTouches[0].clientX;
-          this.handleSwipe(startX, endX);
-        });
-      });
+    let startX = 0;
+    let endX = 0;
 
-      // Pause on hover
-      this.slides.forEach(slide => {
-        slide.addEventListener('mouseenter', () => this.pauseAutoPlay());
-        slide.addEventListener('mouseleave', () => this.startAutoPlay());
-      });
-    }
-
-    goToSlide(index) {
-      if (index === this.currentSlide) return;
-
+    carousel.addEventListener('touchstart', (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      this.isPaused = true;
       this.pauseAutoPlay();
-      this.currentSlide = index;
-      this.updateSlides();
-      this.updateThumbnails();
-      this.remainingTime = 5000;
+    });
 
-      if (!this.isPaused) {
-        this.startAutoPlay();
-      }
-    }
-
-    updateSlides() {
-      this.slides.forEach((slide, index) => {
-        slide.classList.toggle('active', index === this.currentSlide);
-      });
-    }
-
-    updateThumbnails() {
-      this.thumbnails.forEach((thumb, index) => {
-        thumb.classList.toggle('active', index === this.currentSlide);
-      });
-    }
-
-    startAutoPlay() {
-      if (this.autoPlayTimeout) return;
-
-      this.startTime = Date.now();
-      this.autoPlayTimeout = setTimeout(() => {
-        const nextIndex = (this.currentSlide + 1) % this.slides.length;
-        this.goToSlide(nextIndex);
-      }, this.remainingTime);
-
-      this.animateProgressBar();
-    }
-
-    pauseAutoPlay() {
-      if (!this.autoPlayTimeout) return;
-
-      clearTimeout(this.autoPlayTimeout);
-      this.autoPlayTimeout = null;
-
-      const elapsedTime = Date.now() - this.startTime;
-      this.remainingTime = Math.max(0, this.remainingTime - elapsedTime);
-    }
-
-    animateProgressBar() {
-      const activeProgressBar = this.progressBars[this.currentSlide];
-      if (activeProgressBar) {
-        activeProgressBar.style.transition = `width ${this.remainingTime}ms linear`;
-        activeProgressBar.style.width = '100%';
-      }
-    }
-
-    handleSwipe(startX, endX) {
-      const threshold = 50;
-      const diff = startX - endX;
-
-      if (Math.abs(diff) > threshold) {
-        if (diff > 0) {
-          const nextIndex = (this.currentSlide + 1) % this.slides.length;
-          this.goToSlide(nextIndex);
-        } else {
-          const prevIndex = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1;
-          this.goToSlide(prevIndex);
-        }
-      }
+    carousel.addEventListener('touchend', (e: TouchEvent) => {
+      endX = e.changedTouches[0].clientX;
+      this.handleSwipe(startX, endX);
 
       this.isPaused = false;
+      this.startAutoPlay();
+    });
+  }
+
+  handleSwipe(startX: number, endX: number) {
+    const threshold = 50;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        this.nextSlide();
+      } else {
+        this.previousSlide();
+      }
+    }
+  }
+
+  goToSlide(index: number) {
+    if (index === this.currentSlide) return;
+
+    this.pauseAutoPlay();
+
+    this.slides[this.currentSlide].classList.remove('active');
+    this.thumbnails[this.currentSlide].classList.remove('active');
+
+    if (this.progressBar) {
+      this.progressBar.remove();
+      this.progressBar = null;
+    }
+
+    this.currentSlide = index;
+
+    this.slides[this.currentSlide].classList.add('active');
+    this.thumbnails[this.currentSlide].classList.add('active');
+
+    this.scrollThumbnailIntoView();
+
+    this.remainingTime = this.transitionTime;
+
+    this.createProgressBar();
+
+    if (!this.isPaused) {
       this.startAutoPlay();
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    new HeroCarousel();
-  });
+  nextSlide() {
+    const nextIndex = (this.currentSlide + 1) % this.slides.length;
+    this.goToSlide(nextIndex);
+  }
+
+  previousSlide() {
+    const prevIndex =
+      this.currentSlide === 0
+        ? this.slides.length - 1
+        : this.currentSlide - 1;
+    this.goToSlide(prevIndex);
+  }
+
+  startAutoPlay() {
+    if (this.autoPlayTimeout) return;
+
+    this.startTime = Date.now();
+    this.autoPlayTimeout = setTimeout(() => {
+      this.nextSlide();
+    }, this.remainingTime);
+
+    if (this.progressBar) {
+      requestAnimationFrame(() => {
+        if (this.progressBar) {
+          this.progressBar.style.transition = `width ${this.remainingTime}ms linear`;
+          this.progressBar.style.width = '100%';
+        }
+      });
+    }
+  }
+
+  pauseAutoPlay() {
+    if (!this.autoPlayTimeout) return;
+
+    clearTimeout(this.autoPlayTimeout);
+    this.autoPlayTimeout = null;
+
+    if (this.startTime) {
+      const elapsedTime = Date.now() - this.startTime;
+      this.remainingTime -= elapsedTime;
+      if (this.remainingTime < 0) this.remainingTime = 0;
+    }
+
+    if (this.progressBar) {
+      const currentWidth = window.getComputedStyle(this.progressBar).width;
+      this.progressBar.style.transition = 'none';
+      this.progressBar.style.width = currentWidth;
+    }
+  }
+
+  createProgressBar() {
+    if (this.progressBar) {
+      this.progressBar.remove();
+    }
+
+    const activeThumbnail = this.thumbnails[this.currentSlide];
+    
+    this.progressBar = document.createElement('div');
+    this.progressBar.className = 'thumbnail-progress-bar';
+    
+    // Estilos inline para asegurar visibilidad
+    this.progressBar.style.position = 'absolute';
+    this.progressBar.style.top = '0';
+    this.progressBar.style.left = '0';
+    this.progressBar.style.height = '5px';
+    this.progressBar.style.width = '0%';
+    this.progressBar.style.backgroundColor = '#fff'; // Verde brillante - cambiar al color que prefieras
+    this.progressBar.style.zIndex = '999';
+    this.progressBar.style.transition = 'none';
+    
+    activeThumbnail.appendChild(this.progressBar);
+
+    void this.progressBar.offsetWidth;
+  }
+
+  scrollThumbnailIntoView() {
+    const activeThumbnail = this.thumbnails[this.currentSlide];
+    const container = this.thumbnailContainer;
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const thumbnailRect = activeThumbnail.getBoundingClientRect();
+
+    const isVisible =
+      thumbnailRect.left >= containerRect.left &&
+      thumbnailRect.right <= containerRect.right;
+
+    if (!isVisible) {
+      const scrollLeft =
+        activeThumbnail.offsetLeft -
+        container.offsetWidth / 2 +
+        activeThumbnail.offsetWidth / 2;
+
+      container.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth',
+      });
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new ImageCarousel();
+});
 </script>
-
-<style>
-/* Estilos para el carrusel principal */
-#principal-carousel {
-    position: relative;
-    width: 100%;
-    height: 85vh;
-    overflow: hidden;
-}
-
-.carousel-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.carousel-slide::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
-    z-index: 1;
-}
-
-.carousel-slide.active {
-    opacity: 1;
-    z-index: 1;
-}
-
-.carousel-content {
-    text-align: left;
-    color: #ffffff;
-    max-width: 600px;
-    padding: 2rem;
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-}
-
-.carousel-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    font-weight: 300;
-    opacity: 0.9;
-}
-
-.carousel-title {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-
-.carousel-thumbnails {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    z-index: 10;
-}
-
-.thumbnail-item {
-    position: relative;
-    width: 150px;
-    height: 100px;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-}
-
-.thumbnail-item:hover {
-    opacity: 0.8;
-}
-
-.thumbnail-item.active {
-    opacity: 1;
-    border-top: 4px solid #fff;
-}
-
-.thumbnail-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.thumbnail-progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    background-color: var(--color-text-light);
-    width: 0%;
-    transition: width 0.1s linear;
-}
-
-.thumbnail-item.active .thumbnail-progress-bar {
-    width: 100%;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .carousel-content {
-        left: 2%;
-        right: 2%;
-        padding: 1rem;
-        max-width: none;
-    }
-
-    .carousel-subtitle {
-        font-size: 1rem;
-    }
-
-    .carousel-title {
-        font-size: 2rem;
-    }
-
-    .carousel-thumbnails {
-        bottom: 1rem;
-        gap: 0.5rem;
-    }
-
-    .thumbnail-item {
-        width: 100px;
-        height: 66px;
-    }
-}
-</style>
