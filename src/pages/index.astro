@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 import HeroCarousel from "../components/HeroCarousel.astro";
 
+import ModelBar from "../components/ModelBar.astro";
+
 import { getCarousels } from "../lib/strapi";
 import type { Carousel as CarouselType } from "../lib/strapi"; // ---Importación Tipo
 
@@ -62,4 +64,6 @@ try {
       <HeroCarousel heroCarouselData={carousels[0]} />
     )
   }
+
+  <ModelBar />
 </MainLayout>

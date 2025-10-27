@@ -49,8 +49,7 @@ const heroItems = heroCarouselData?.Items || [];
 
 <style>
 /* ---------------------------------------------------------------------- */
-/* COMPONENTE: CARRUSEL PRINCIPAL (estilos exactamente como en carrusel.html, */
-/* salvo que se eliminaron las reglas #slide-N con background-image estático) */
+/* COMPONENTE: CARRUSEL PRINCIPAL
 /* ---------------------------------------------------------------------- */
 
 #principal-carousel {
@@ -78,7 +77,6 @@ const heroItems = heroCarouselData?.Items || [];
   background-repeat: no-repeat;
 }
 
-/* Se ELIMINARON las reglas #slide-1 ... #slide-5 que tenían background-image estático */
 
 #principal-carousel .carousel-slide.active {
   opacity: 1;
@@ -389,7 +387,7 @@ class ImageCarousel {
     this.progressBar.style.left = '0';
     this.progressBar.style.height = '5px';
     this.progressBar.style.width = '0%';
-    this.progressBar.style.backgroundColor = '#fff'; // Verde brillante - cambiar al color que prefieras
+    this.progressBar.style.backgroundColor = '#fff'; 
     this.progressBar.style.zIndex = '999';
     this.progressBar.style.transition = 'none';
     
