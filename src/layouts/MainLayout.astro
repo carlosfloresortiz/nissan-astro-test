@@ -1,12 +1,18 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import { getAgencyInfo } from '../lib/strapi.ts';
 
 export interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+
+const agencyInfo = await getAgencyInfo();
+const agencyName = agencyInfo?.agencyName || "Agencia (Error)";
+const phoneNumber = agencyInfo?.agencyPhone || "000-000-0000";
+
 ---
 
 <html lang="en">
@@ -39,7 +45,7 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <Header />
+    <Header agencyName={agencyName} phoneNumber={phoneNumber} />
 
     <main>
       <slot />

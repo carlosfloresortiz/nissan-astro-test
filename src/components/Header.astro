@@ -1,286 +1,391 @@
 ---
-// Nissan Header Component
----
+export interface Props {
+  agencyName: string;
+  phoneNumber: string;
+}
 
-<header id="main-header">
-    <div class="header-container">
-        <a href="/" class="logo">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 504 421.7" style="enable-background:new 0 0 504 421.7;" xml:space="preserve">
-                <style type="text/css">
-                    .st0{fill:currentColor;}
-                </style>
-                <g id="Layer_1_1_">
-                    <g id="Nissan_Badge_1_">
-                        <g>
-                            <path class="st0" d="M293.7,227.7c-0.4,0.1-2,0.1-2.7,0.1h-51.6v12h52.5c0.4,0,3.5,0,4.1-0.1c10.7-1,15.6-9.9,15.6-17.7
-                                    c0-8-5.1-16.6-14.8-17.5c-1.9-0.2-3.5-0.2-4.2-0.2h-34.3c-1.5,0-3.2-0.1-3.8-0.3c-2.7-0.7-3.7-3.1-3.7-5.1c0-1.8,1-4.2,3.8-5
-                                    c0.8-0.2,1.7-0.3,3.6-0.3h49.5v-11.8h-50.3c-2.1,0-3.7,0.1-5,0.3c-8.6,1.2-14.6,8.1-14.6,16.9c0,7.2,4.5,15.6,14.4,17
-                                    c1.8,0.2,4.3,0.2,5.4,0.2H291c0.6,0,2.1,0,2.4,0.1c3.8,0.5,5.1,3.3,5.1,5.8C298.5,224.5,297,227.1,293.7,227.7z"/>
-                            <path class="st0" d="M195.9,227.7c-0.4,0.1-2,0.1-2.6,0.1h-51.7v12h52.5c0.4,0,3.5,0,4.1-0.1c10.7-1,15.6-9.9,15.6-17.7
-                                c0-8-5.1-16.6-14.8-17.5c-1.9-0.2-3.5-0.2-4.2-0.2h-34.3c-1.5,0-3.2-0.1-3.8-0.3c-2.7-0.7-3.7-3.1-3.7-5.1c0-1.8,1-4.2,3.8-5
-                                c0.8-0.2,1.7-0.3,3.6-0.3h49.5v-11.8h-50.3c-2.1,0-3.7,0.1-5,0.3c-8.6,1.2-14.6,8.1-14.6,16.9c0,7.2,4.5,15.6,14.4,17
-                                c1.8,0.2,4.3,0.2,5.4,0.2h33.4c0.6,0,2.1,0,2.4,0.1c3.8,0.5,5.1,3.3,5.1,5.8C200.7,224.5,199.3,227.1,195.9,227.7z"/>
-                            <rect x="101.7" y="181.4" class="st0" width="13" height="58.7"/>
-                            <polygon class="st0" points="73,240.1 73,181.4 60,181.4 60,225.2 16.7,181.4 0,181.4 0,240.1 13,240.1 13,196.1 56.6,240.1"/>
-                            <polygon class="st0" points="491.1,181.4 491.1,225.2 447.8,181.4 431.1,181.4 431.1,240.1 444.1,240.1 444.1,196.1 
-                                487.6,240.1 504,240.1 504,181.4"/>
-                            <path class="st0" d="M363.4,181.4l-36.6,58.7h15.8l6.5-10.5h42.7l6.5,10.5H414l-36.6-58.7H363.4z M385.1,218.5h-29.3l14.7-23.6
-                                L385.1,218.5z"/>
-                            <path class="st0" d="M72.3,148.1C98.5,71.6,170.7,20.2,252.1,20.2s153.7,51.4,179.8,127.9l0.2,0.6h57.3v-6.9l-23.8-2.8
-                                c-14.7-1.7-17.8-8.2-21.8-16.4l-1-2C408.4,47.4,333.5,0,252.1,0C170.6,0,95.8,47.4,61.4,120.8l-1,2c-4,8.2-7.1,14.7-21.8,16.4
-                                L14.8,142v6.9H72L72.3,148.1z"/>
-                            <path class="st0" d="M432.1,272.9l-0.2,0.6c-26.2,76.5-98.4,127.8-179.8,127.8l0,0c-81.4,0-153.7-51.4-179.8-127.9l-0.2-0.6H14.9
-                                v6.9l23.8,2.8c14.7,1.7,17.8,8.2,21.8,16.4l1,2c34.4,73.4,109.3,120.8,190.7,120.8l0,0c81.4,0,156.3-47.4,190.7-120.7l1-2
-                                c4-8.2,7.1-14.7,21.8-16.4l23.8-2.8v-6.9L432.1,272.9z"/>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </a>
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#">VEHÍCULOS</a></li>
-                <li><a href="#">COMPRAR UN NISSAN <span class="dropdown-arrow">▼</span></a></li>
-                <li><a href="#">CREDI NISSAN® <span class="dropdown-arrow">▼</span></a></li>
-                <li><a href="#">DUEÑOS NISSAN <span class="dropdown-arrow">▼</span></a></li>
-                <li><a href="#">ESTO ES NISSAN <span class="dropdown-arrow">▼</span></a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="icon-btn favorites-btn" aria-label="Favorites">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-            </button>
-            <button id="hamburger-btn" class="icon-btn hamburger-btn" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+const { agencyName, phoneNumber } = Astro.props;
+---
+<div id="top-bar">
+  <div class="top-bar-container">
+    <div class="top-bar-left">
+      <strong>{agencyName}</strong>
     </div>
+
+    <div class="top-bar-right">
+      <nav id="top-bar-nav">
+        <ul>
+          <li><a href="#">Prueba de manejo</a></li>
+          <li><a href="#">Promociones</a></li>
+          <li><a href="#">Cita de servicio</a></li>
+        </ul>
+      </nav>
+      <a href={`tel:${phoneNumber}`} class="top-bar-phone">{phoneNumber}</a>
+    </div>
+  </div>
+</div>
+<header id="main-header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <svg
+        version="1.1"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 504 421.7"
+        style="enable-background:new 0 0 504 421.7;"
+        xml:space="preserve"
+      >
+        <style type="text/css">
+          .st0 {
+            fill: currentColor;
+          }
+        </style>
+        <g id="Layer_1_1_">
+          <g id="Nissan_Badge_1_">
+            <g>
+              <path
+                class="st0"
+                d="M293.7,227.7c-0.4,0.1-2,0.1-2.7,0.1h-51.6v12h52.5c0.4,0,3.5,0,4.1-0.1c10.7-1,15.6-9.9,15.6-17.7
+				c0-8-5.1-16.6-14.8-17.5c-1.9-0.2-3.5-0.2-4.2-0.2h-34.3c-1.5,0-3.2-0.1-3.8-0.3c-2.7-0.7-3.7-3.1-3.7-5.1c0-1.8,1-4.2,3.8-5
+				c0.8-0.2,1.7-0.3,3.6-0.3h49.5v-11.8h-50.3c-2.1,0-3.7,0.1-5,0.3c-8.6,1.2-14.6,8.1-14.6,16.9c0,7.2,4.5,15.6,14.4,17
+				c1.8,0.2,4.3,0.2,5.4,0.2H291c0.6,0,2.1,0,2.4,0.1c3.8,0.5,5.1,3.3,5.1,5.8C298.5,224.5,297,227.1,293.7,227.7z"
+              ></path>
+              <path
+                class="st0"
+                d="M195.9,227.7c-0.4,0.1-2,0.1-2.6,0.1h-51.7v12h52.5c0.4,0,3.5,0,4.1-0.1c10.7-1,15.6-9.9,15.6-17.7
+				c0-8-5.1-16.6-14.8-17.5c-1.9-0.2-3.5-0.2-4.2-0.2h-34.3c-1.5,0-3.2-0.1-3.8-0.3c-2.7-0.7-3.7-3.1-3.7-5.1c0-1.8,1-4.2,3.8-5
+				c0.8-0.2,1.7-0.3,3.6-0.3h49.5v-11.8h-50.3c-2.1,0-3.7,0.1-5,0.3c-8.6,1.2-14.6,8.1-14.6,16.9c0,7.2,4.5,15.6,14.4,17
+				c1.8,0.2,4.3,0.2,5.4,0.2h33.4c0.6,0,2.1,0,2.4,0.1c3.8,0.5,5.1,3.3,5.1,5.8C200.7,224.5,199.3,227.1,195.9,227.7z"
+              ></path>
+              <rect
+                x="101.7"
+                y="181.4"
+                class="st0"
+                width="13"
+                height="58.7"
+              ></rect>
+              <polygon
+                class="st0"
+                points="73,240.1 73,181.4 60,181.4 60,225.2 16.7,181.4 0,181.4 0,240.1 13,240.1 13,196.1 56.6,240.1
+				"
+              ></polygon>
+              <polygon
+                class="st0"
+                points="491.1,181.4 491.1,225.2 447.8,181.4 431.1,181.4 431.1,240.1 444.1,240.1 444.1,196.1 487.6,240.1
+				504,240.1 504,181.4 			"
+              ></polygon>
+              <path
+                class="st0"
+                d="M363.4,181.4l-36.6,58.7h15.8l6.5-10.5h42.7l6.5,10.5H414l-36.6-58.7H363.4z M385.1,218.5h-29.3l14.7-23.6
+				L385.1,218.5z"
+              ></path>
+              <path
+                class="st0"
+                d="M72.3,148.1C98.5,71.6,170.7,20.2,252.1,20.2s153.7,51.4,179.8,127.9l0.2,0.6h57.3v-6.9l-23.8-2.8
+				c-14.7-1.7-17.8-8.2-21.8-16.4l-1-2C408.4,47.4,333.5,0,252.1,0C170.6,0,95.8,47.4,61.4,120.8l-1,2c-4,8.2-7.1,14.7-21.8,16.4
+				L14.8,142v6.9H72L72.3,148.1z"
+              ></path>
+              <path
+                class="st0"
+                d="M432.1,272.9l-0.2,0.6c-26.2,76.5-98.4,127.8-179.8,127.8l0,0c-81.4,0-153.7-51.4-179.8-127.9l-0.2-0.6H14.9
+				v6.9l23.8,2.8c14.7,1.7,17.8,8.2,21.8,16.4l1,2c34.4,73.4,109.3,120.8,190.7,120.8l0,0c81.4,0,156.3-47.4,190.7-120.7l1-2
+				c4-8.2,7.1-14.7,21.8-16.4l23.8-2.8v-6.9L432.1,272.9z"
+              ></path>
+            </g>
+            <g id="Layer_2_2_">
+              <g id="Layer_3_1_"></g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </a>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#">VEHÍCULOS</a></li>
+        <li><a href="#">COMPRAR UN NISSAN</a></li>
+        <li><a href="#">CREDINISSAN</a></li>
+        <li><a href="#">DUEÑOS NISSAN</a></li>
+        <li><a href="#">ESTO ES NISSAN</a></li>
+      </ul>
+    </nav>
+    <button
+      id="hamburger-btn"
+      class="hamburger-btn"
+      aria-label="Toggle navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </header>
 
-<script>
-const initHamburgerMenu = () => {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const body = document.body;
-
-    if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', () => {
-            body.classList.toggle('nav-open');
-        });
-    }
-};
-
-const initScrolledHeader = () => {
-    const header = document.getElementById('main-header');
-    if (header) {
-        const scrollThreshold = 50;
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    initHamburgerMenu();
-    initScrolledHeader();
-});
-</script>
-
 <style>
-/* Estilos del header principal */
-#main-header {
-    background-color: transparent;
+  /* ---------------------------------------------------------------------- */
+  /* COMPONENTE: DEALER TOP-BAR 
+/* ---------------------------------------------------------------------- */
+  #top-bar {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    height: var(--top-bar-height);
+    padding: 0 48px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    height: 180px;
-    display: flex;
-    align-items: flex-start;
-    padding-top: 24px;
-}
-
-.header-container {
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    z-index: 1001;
+  }
+
+  .top-bar-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    height: 100%;
-}
-
-#main-header .logo {
-    display: block;
-    width: 160px;
-    transition: width 0.3s ease;
-}
-
-#main-header .logo svg {
+    align-items: center;
     width: 100%;
-    height: 100%;
-    color: #ffffff;
-    object-fit: contain;
-}
+  }
 
-#main-nav ul {
-    list-style: none;
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  #top-bar-nav ul {
     margin: 0;
     padding: 0;
+    list-style: none;
     display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
+    gap: 20px;
+  }
 
-#main-nav ul li a {
-    color: #ffffff;
+  #top-bar-nav ul li a,
+  .top-bar-phone {
+    color: var(--color-text-light);
     text-decoration: none;
-    font-size: 0.813rem;
-    font-weight: 500;
     transition: opacity 0.2s ease;
     text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    white-space: nowrap;
-}
+  }
 
-#main-nav ul li a:hover {
-    opacity: 0.7;
-}
-
-.dropdown-arrow {
-    font-size: 0.65rem;
+  #top-bar-nav ul li a:hover,
+  .top-bar-phone:hover {
     opacity: 0.8;
-}
+  }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+  /* ---------------------------------------------------------------------- */
+  /* COMPONENTE: HEADER  
+/* ---------------------------------------------------------------------- */
 
-.icon-btn {
-    background: none;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s ease;
-}
-
-.icon-btn:hover {
-    opacity: 0.7;
-}
-
-.favorites-btn svg {
-    width: 24px;
-    height: 24px;
-}
-
-/* Estado scrolled del header */
-#main-header.scrolled {
+  #main-header {
+    position: fixed;
+    top: var(--top-bar-height);
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     background-color: transparent;
-}
+    padding: 12px 48px;
+    transition:
+      background-color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out,
+      top 0.3s ease-in-out;
+  }
 
-/* Botón hamburguesa */
-.hamburger-btn {
+  .header-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* --- Logo --- */
+  #main-header .logo {
+    display: inline-block;
+    color: var(--color-text-light);
+    transition: color 0.3s ease-in-out;
+  }
+
+  #main-header .logo svg {
+    width: 150px;
+    height: auto;
+    display: block;
+    transition: width 0.3s ease-in-out;
+  }
+
+  /* --- Navegación --- */
+  #main-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+
+  #main-nav ul li a {
+    font-family: var(--font-family-base);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  #main-nav ul li a:hover {
+    opacity: 0.8;
+  }
+
+  /* --- ESTADO SCROLLED --- */
+
+  #main-header.scrolled {
+    background-color: var(--color-text-light);
+    padding: 10px 48px;
+    box-shadow: var(--box-shadow-default);
+  }
+
+  #main-header.scrolled .logo {
+    color: var(--color-primary);
+  }
+
+  #main-header.scrolled .logo svg {
+    width: 48px;
+  }
+
+  #main-header.scrolled #main-nav ul li a {
+    color: var(--color-primary);
+  }
+
+  /* --- Botón Hamburguesa (Oculto en Desktop) --- */
+  .hamburger-btn {
+    display: none;
     background: none;
     border: none;
-    padding: 0.5rem;
     cursor: pointer;
-    position: relative;
-    z-index: 1001;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+    padding: 10px;
+    z-index: 1002;
+  }
 
-.hamburger-btn span {
+  .hamburger-btn span {
     display: block;
-    width: 22px;
-    height: 2px;
-    background-color: #ffffff;
-    transition: transform 0.3s ease;
-}
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-primary);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
 
-/* Media queries */
-@media (max-width: 1200px) {
-    #main-nav ul {
-        gap: 1rem;
+  /* --- Media Query para Móviles --- */
+
+  @media (max-width: 992px) {
+    #top-bar {
+      display: none;
     }
 
-    #main-nav ul li a {
-        font-size: 0.75rem;
+    #main-header {
+      top: 0;
+      background-color: var(--color-text-light);
+      box-shadow: var(--box-shadow-default);
+      height: 60px;
+      padding: 10px 20px;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
     }
-}
 
-@media (max-width: 991px) {
-    .header-container {
-        padding: 0 1rem;
+    #main-header.scrolled {
+      padding: 10px 20px;
     }
 
     #main-header .logo {
-        width: 130px;
-        height: 40px;
+      color: var(--color-primary);
+    }
+
+    #main-header .logo svg {
+      width: 48px;
     }
 
     #main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.98);
-        padding: 80px 2rem 2rem;
-        transition: right 0.3s ease;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 60px);
+      background-color: var(--color-text-light);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-100%);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    body.nav-open #main-nav {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
     }
 
     #main-nav ul {
-        flex-direction: column;
-        gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
     }
 
     #main-nav ul li a {
-        font-size: 1.25rem;
+      color: var(--color-primary);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
-    .favorites-btn {
-        display: none;
+    .hamburger-btn {
+      display: block;
     }
 
-    /* Clase que se añade al body cuando el menú está abierto */
-    :global(body.nav-open) #main-nav {
-        right: 0;
+    body.nav-open .hamburger-btn span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
     }
-
-    /* Animación de las barras del botón hamburguesa */
-    :global(body.nav-open) .hamburger-btn span:first-child {
-        transform: translateY(7px) rotate(45deg);
+    body.nav-open .hamburger-btn span:nth-child(2) {
+      opacity: 0;
     }
-
-    :global(body.nav-open) .hamburger-btn span:nth-child(2) {
-        opacity: 0;
+    body.nav-open .hamburger-btn span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
     }
-
-    :global(body.nav-open) .hamburger-btn span:last-child {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-}
+  }
 </style>
+
+<script>
+  // Menu hamburguesa
+  const hamburgerBtn = document.getElementById("hamburger-btn");
+  const body = document.body;
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener("click", () => {
+      body.classList.toggle("nav-open");
+    });
+  }
+
+  // Header scroll animacion
+  const header = document.getElementById("main-header");
+  if (header) {
+    const scrollThreshold = 50;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > scrollThreshold) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  }
+</script>

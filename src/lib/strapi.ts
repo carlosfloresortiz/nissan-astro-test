@@ -120,3 +120,21 @@ export async function getCarousel(id: number): Promise<Carousel | null> {
     return response.data || null;
 }
 
+
+export async function getAgencyInfo() {
+  const res = await fetch(`${STRAPI_URL}/api/datos-agencia`, {
+    headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
+  });
+
+  if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+  const json = await res.json();
+
+  const data = json.data;
+
+  if (!data) return null;
+
+  return {
+    agencyName: data.agencyName,
+    agencyPhone: data.agencyPhone,
+  };
+}
