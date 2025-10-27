@@ -1,7 +1,6 @@
 ---
 import Header from '../components/Header.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
-import Carousel from '../components/Carousel.astro';
 import { getCarousels } from '../lib/strapi';
 import type { Carousel as CarouselType } from '../lib/strapi'; // <-- 1. Importa el TIPO
 
@@ -157,12 +156,5 @@ try {
 		{!error && carousels.length > 0 && (
 			<HeroCarousel heroCarouselData={carousels[0]} />
 		)}
-
-		{!error && carousels.length > 1 && carousels.slice(1).map((carousel) => {
-			// Check for Items field directly on carousel or in attributes
-			const items = carousel.Items || [];
-			if (!items || items.length === 0) return null;
-			return <Carousel carousel={carousel} />;
-		}).filter(Boolean)}
 	</body>
 </html>
