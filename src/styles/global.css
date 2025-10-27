@@ -1,0 +1,311 @@
+/* ---------------------------------------------------------------------- */
+/* Astro msg */
+/* ---------------------------------------------------------------------- */
+.error-message {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fed7d7;
+    color: #c53030;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(197, 48, 48, 0.2);
+}
+
+.empty-message {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    color: #4a5568;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ---------------------------------------------------------------------- */
+/* FUENTES (Importación) */
+/* ---------------------------------------------------------------------- */
+@font-face {
+    font-family: "NissanBrandW01-Light";
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01-Regular";
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01-Bold";
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 300;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Light.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 400;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 500;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 600;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Regular.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 700;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+@font-face {
+    font-family: "NissanBrandW01";
+    font-weight: 900;
+    src: url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff2") format("woff2"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.woff") format("woff"),
+        url("https://cdn.dlron.us/assets/fonts/nissanbrandW01/NissanBrandW01-Bold.ttf") format("truetype");
+    font-display: swap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* VARIABLES GLOBALES */
+/* ---------------------------------------------------------------------- */
+:root {
+    /* Colores */
+    --color-primary: #000000;
+    --color-secondary: #333333;
+    --color-text-light: #ffffff;
+    --color-text-dark: #1f1f1f;
+    --color-background-light: #f4f4f4;
+
+    /* Tipografía */
+    --font-family-base: "NissanBrandW01", sans-serif;
+    --font-size-base: 16px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 50px;
+    --box-shadow-default: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --top-bar-height: 32px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ESTILOS BASE Y GLOBALES */
+/* ---------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    color: var(--color-text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+/* ---------------------------------------------------------------------- */
+/* TIPOGRAFÍA */
+/* ---------------------------------------------------------------------- */
+
+/* Encabezados */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.3px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+/* Párrafos y texto regular */
+p {
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Variaciones de peso */
+.text-light {
+    font-weight: 300;
+}
+
+.text-regular,
+p {
+    font-weight: 400;
+}
+
+.text-bold,
+strong,
+b {
+    font-weight: 700;
+}
+
+/* Tamaños de texto (Utilidades) */
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-base {
+    font-size: 1rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+/* ---------------------------------------------------------------------- */
+/* BOTONES */
+/* ---------------------------------------------------------------------- */
+
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-align: center;
+    padding: 12px 30px;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Botón Principal */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    border-color: var(--color-secondary);
+}
+
+/* Botón Secundario */
+.btn-secondary {
+    background-color: var(--color-text-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-text-light);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    border-color: var(--color-secondary);
+}
+
+/* Botones deshabilitados */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
